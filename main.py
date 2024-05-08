@@ -14,12 +14,18 @@ env_path = os.path.join(actual_script_dir, ".env")
 
 # Load the .env file manually
 dotenv.load_dotenv(env_path)
+# get user home directory
+homelog = os.path.expanduser("~")
+logfile = f"{homelog}/notifications.log"
+# create log directory if it does not exist
+if not os.path.exists(homelog):
+    os.makedirs(homelog)
 # log with timestamp and log to file and console
 logging.basicConfig(
     level=logging.ERROR,
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
-        logging.FileHandler("/home/lrasmussen/log/notications.log"),
+        logging.FileHandler(logfile, mode="a"),
         logging.StreamHandler(),
     ],
 )
